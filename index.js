@@ -19,6 +19,8 @@ mongoose
         (err) => console.log('Error connecting to mongoDB', err)
     );
 //sets up the middleware for parsing the bodies and cookies off of the requests
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(cookieParser());
 
