@@ -69,6 +69,7 @@ router.post('/register', async (req, res) => {
       .json({
         title: 'User Registration Successful',
         detail: 'Successfully registered new user',
+        token: session.token
       });
   } catch (err) {
     res.status(400).json({
@@ -120,9 +121,9 @@ router.post('/login', async (req, res) => {
         secure: process.env.NODE_ENV === 'production', // will only be set to true in production
       })
       .json({
-
         title: 'Login Successful',
         detail: 'Successfully validated user credentials',
+        token: session.token
       });
   } catch (err) {
     res.status(401).json({

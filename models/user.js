@@ -15,7 +15,6 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 1,
         trim: true, //calls .trim() on the value to get rid of whitespace
-        unique: true, //note that the unique option is not a validator; we use mongoose-unique-validator to enforce it
     },
     phoneNumber: {
         type: String,

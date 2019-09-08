@@ -24,7 +24,7 @@ const SessionSchema = new mongoose.Schema({
 
 SessionSchema.statics.generateToken = function () {
     return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
+        crypto.randomBytes(64, (err, buf) => {
             if (err) {
                 reject(err);
             }
