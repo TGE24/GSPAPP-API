@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 1,
-        trim: true, //calls .trim() on the value to get rid of whitespace
+        trim: true //calls .trim() on the value to get rid of whitespace
     },
     phoneNumber: {
         type: String,
@@ -26,7 +26,18 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 8,
+        trim: true
     },
+    age: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    sex: {
+        type: String,
+        required: true,
+        trim: true
+    }
 });
 
 //this enforces emails to be unique!

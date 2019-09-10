@@ -47,11 +47,11 @@ router.get('/user', authenticate, async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const { name, faculty, phoneNumber, password } = req.body;
+    const { name, faculty, phoneNumber, password, age, sex } = req.body;
     if (typeof password !== 'string') {
       throw new Error('Password must be a string.');
     }
-    const user = new User({ name, faculty, phoneNumber, password });
+    const user = new User({ name, faculty, phoneNumber, password, age, sex });
     const persistedUser = await user.save();
 
     // we'll use the ID of the new user for our new session
@@ -104,6 +104,7 @@ router.post('/login', async (req, res) => {
     }
     // use the ID of the user who logged in for the session
     const userId = user._id;
+    const userDetails = await User.findById({ _id: userId }, { sex: 5, age: 4, phoneNumber: 3, faculty: 2, name: 1, _id: 0 });
 
     const passwordValidated = await bcrypt.compare(password, user.password);
     if (!passwordValidated) {
@@ -123,7 +124,8 @@ router.post('/login', async (req, res) => {
       .json({
         title: 'Login Successful',
         detail: 'Successfully validated user credentials',
-        token: session.token
+        token: session.token,
+        userDetails
       });
   } catch (err) {
     res.status(401).json({
