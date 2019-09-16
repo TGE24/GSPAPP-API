@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
+const Admin = require('../models/admin')
 
 const router = express.Router();
 const Session = require('../models/session');
@@ -78,6 +79,102 @@ router.post('/register', async (req, res) => {
         {
           title: 'Registration Error',
           detail: 'Something went wrong during registration process.',
+          errorMessage: err.message,
+        },
+      ],
+    });
+  }
+});
+
+router.post('/admin/register', async (req, res) => {
+  try {
+    const { name, phoneNumber, password } = req.body;
+    if (typeof password !== 'string') {
+      throw new Error('Password must be a string.');
+    }
+    const admin = new Admin({ name, phoneNumber, password });
+    const persistedAdmin = await admin.save();
+
+    // we'll use the ID of the new user for our new session
+    const adminId = persistedAdmin._id;
+    const session = await initSession(adminId);
+
+    res
+      .cookie('token', session.token, {
+        httpOnly: true,
+        sameSite: true,
+        maxAge: 86400000, //one day
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .status(201)
+      .json({
+        title: 'Admin Registration Successful',
+        detail: 'Successfully registered new admin',
+        token: session.token,
+        admin
+      });
+  } catch (err) {
+    res.status(400).json({
+      errors: [
+        {
+          title: 'Registration Error',
+          detail: 'Something went wrong during registration process.',
+          errorMessage: err.message,
+        },
+      ],
+    });
+  }
+});
+
+router.post('/admin/login', async (req, res) => {
+  try {
+    const { phoneNumber, password } = req.body;
+    if (typeof password !== 'string') {
+      return res.status(400).json({
+        errors: [
+          {
+            title: 'Bad Request',
+            detail: 'Password must be a string',
+          },
+        ],
+      });
+    }
+    //queries database to find a user with the received email
+    const admin = await Admin.findOne({ phoneNumber });
+    if (!admin) {
+      throw new Error();
+    }
+    // use the ID of the user who logged in for the session
+    const adminId = admin._id;
+    const adminDetails = await Admin.findById({ _id: adminId }, { phoneNumber: 2, name: 1, _id: 0 });
+
+    const passwordValidated = await bcrypt.compare(password, admin.password);
+    if (!passwordValidated) {
+      throw new Error();
+    }
+    // initialize our session
+    const session = await initSession(adminId);
+
+    // same options as before!
+    res
+      .cookie('token', session.token, {
+        httpOnly: true,
+        sameSite: true,
+        maxAge: 86400000, //one day
+        secure: process.env.NODE_ENV === 'production', // will only be set to true in production
+      })
+      .json({
+        title: 'Login Successful',
+        detail: 'Successfully validated admin credentials',
+        token: session.token,
+        adminDetails
+      });
+  } catch (err) {
+    res.status(401).json({
+      errors: [
+        {
+          title: 'Invalid Credentials',
+          detail: 'Check phone number and password combination',
           errorMessage: err.message,
         },
       ],
