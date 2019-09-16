@@ -12,6 +12,14 @@ cloudinary.config({
 // import our authenticate middleware
 const { authenticate } = require("../middleware/authenticate");
 
+router.get("/course", authenticate, (req, res, next) => {
+  Lecture.findOne({
+    title: "Library Skills"
+  }).then(function(subtopics) {
+    res.send(subtopics);
+  });
+});
+
 router.post("/upload", authenticate, (req, res, next) => {
   new formidable.IncomingForm().parse(req, (err, fields, files) => {
     const path = files.material.path;
@@ -52,17 +60,17 @@ router.post("/upload", authenticate, (req, res, next) => {
       }
     );
   });
-  //     const course = new Lecture({
-  //   title: "Library Skills",
-  //   coursecode: "GSP 101",
-  //   topics: [
-  //     { topic: "The Introduction to The Use of Library" },
-  //     { topic: "Modern Technologies in Library" }
-  //   ]
-  // });
-  // course.save().then(function(savedcourse) {
-  // res.send(savedcourse)
-  // })
 });
+//     const course = new Lecture({
+//   title: "Library Skills",
+//   coursecode: "GSP 101",
+//   topics: [
+//     { topic: "The Introduction to The Use of Library" },
+//     { topic: "Modern Technologies in Library" }
+//   ]
+// });
+// course.save().then(function(savedcourse) {
+// res.send(savedcourse)
+// })
 
 module.exports = router;
