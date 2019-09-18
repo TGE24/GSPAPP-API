@@ -12,13 +12,13 @@ cloudinary.config({
 // import our authenticate middleware
 const { authenticate } = require("../middleware/authenticate");
 
-router.get("/course", authenticate, (req, res, next) => {
-  Lecture.findOne({
-    title: "Library Skills"
-  }).then(function(subtopics) {
-    res.send(subtopics);
-  });
-});
+// router.get("/course", authenticate, (req, res, next) => {
+//   Lecture.findOne({
+//     title: "Library Skills"
+//   }).then(function(subtopics) {
+//     res.send(subtopics);
+//   });
+// });
 
 router.post("/upload", authenticate, (req, res, next) => {
   new formidable.IncomingForm().parse(req, (err, fields, files) => {
