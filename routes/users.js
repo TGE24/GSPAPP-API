@@ -27,7 +27,7 @@ router.get("/user", authenticate, async (req, res) => {
     // only retrieve the authenticated user's email
     const user = await User.findById(
       { _id: userId },
-      { phoneNumber: 3, faculty: 2, name: 1, _id: 0 }
+      { totalScore: 4, phoneNumber: 3, faculty: 2, name: 1, _id: 0 }
     );
 
     res.json({
@@ -110,7 +110,15 @@ router.post("/login", async (req, res) => {
     const userId = user._id;
     const userDetails = await User.findById(
       { _id: userId },
-      { sex: 5, age: 4, phoneNumber: 3, faculty: 2, name: 1, _id: 0 }
+      {
+        totalScore: 6,
+        sex: 5,
+        age: 4,
+        phoneNumber: 3,
+        faculty: 2,
+        name: 1,
+        _id: 0
+      }
     );
     const courseDetails = await Lecture.findOne({ title: "Library Skills" });
     const passwordValidated = await bcrypt.compare(password, user.password);
