@@ -15,7 +15,7 @@ router.post("/upload", authenticate, (req, res, next) => {
            {
             "name" : "Definition",
             "material": "1. The word library is derived from the Latin word “liber” which means book. 2. The library is a storehouse of knowledge. 3. That view derives from the fact that libraries were originally places were books as media of documentation of knowledge were kept and visited in order to use the stored knowledge",
-            "topicid":"5d7f2f819c177300045e4a9d",
+            
             quiz:[
               {
                 "question":"Imagine you have an assignment to write a paper based on scholarly information. Which of the following places is most appropriate place to source for information?",
@@ -44,7 +44,7 @@ router.post("/upload", authenticate, (req, res, next) => {
            {
             "name" : "Types of library",
             "material": "National Library 1. This is the apex library of any nation. 2. It is usually established and funded by the executive arm of government at the national level with branches spread across the nation. Functions  1. Serves as the depository for copyrighted publication in a country. 2. Prepares the national bibliography 3. Encourages reading habits/study skill and research.",
-            "topicid":"5d7f2f819c177300045e4a9d",
+            
             quiz: [
               {
                 "question":"There are two organizational systems practiced in the University library. What are they?",
@@ -74,7 +74,7 @@ router.post("/upload", authenticate, (req, res, next) => {
            {
             "name" : "Public library",
             "material": "1. This is a government owned and funded at state level with its presence in state capital and branches in local government headquarters. Functions 1.Encouragement of reading habits; 2. Promotion of enlighten and leisure; 3. Preservation and promotion of cultural heritage; and  4. Promotion and use of public libraries as education agencies for the individual",
-            "topicid":"5d7f2f819c177300045e4a9d",
+            
             quiz: [
               {
                 "question":"In the administration and management of the university library, which of the following is not a function of the administration?",
@@ -103,7 +103,7 @@ router.post("/upload", authenticate, (req, res, next) => {
           {
             "name" : "Special library",
             "material": "1. They are libraries meant specially for research on a particular field of study and often for a limited group of users. 2. Everything about the library is special – collections, subjects, users and parent body. 3. The collection is made up of mainly of periodicals, books report, executive summaries and abstract. Functions 1. Encouragement of reading habits; 2. Promotion of enlighten and leisure; 3. Preservation and promotion of cultural heritage; and 4. Promotion and use of public libraries as education agencies for the individual",
-            "topicid":"5d7f2f819c177300045e4a9d",
+            
             quiz: [
               {
                 "question":"Technical services division include all the following except?",
@@ -132,7 +132,7 @@ router.post("/upload", authenticate, (req, res, next) => {
           {
             "name" : "Special library",
             "material": "1. They are libraries meant specially for research on a particular field of study and often for a limited group of users. 2. Everything about the library is special – collections, subjects, users and parent body. 3. The collection is made up of mainly of periodicals, books report, executive summaries and abstract. Functions 1. Encouragement of reading habits; 2. Promotion of enlighten and leisure; 3. Preservation and promotion of cultural heritage; and 4. Promotion and use of public libraries as education agencies for the individual",
-            "topicid":"5d7f2f819c177300045e4a9d",
+            
             quiz:[
             {
               "question":"The ________ section is responsible for the preservation of the life span of library materials such as books and periodicals.",
@@ -162,7 +162,7 @@ router.post("/upload", authenticate, (req, res, next) => {
           {
             "name" : "Private library",
             "material": "1. These are collections of individuals. 2. The purpose of the personal collection is to foster personal development, research and consultancy services. 2. Examples are Nwafor Orizu Library Nwewi, Njoku Memorial Library donated to the University of Nigeria Nsukka and many more.",
-            "topicid":"5d7f2f819c177300045e4a9d",
+            
             quiz: [
               {
                 "question":"What involves the systematic application of organized knowledge (synthesis) and tangibles (tools) for the extension of human facilities that are restricted as a result of the evolutionary process?",
