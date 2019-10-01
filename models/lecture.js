@@ -13,7 +13,7 @@ const AnswersSchema = new Schema({
   c: String,
   d: String,
   e: String
-})
+});
 
 const MaterialsSchema = new Schema({
   title: String,

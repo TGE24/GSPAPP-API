@@ -1,25 +1,8 @@
 const express = require("express");
 const Lecture = require("../models/lecture");
 const router = express.Router();
-const formidable = require("formidable");
-const cloudinary = require("cloudinary").v2;
-cloudinary.config({
-  cloud_name: "tech-18",
-  api_key: "856292739299675",
-  api_secret: "8Qcrg5W7BuUizWQ5VYUGmra489g"
-});
 
-// import our authenticate middleware
 const { authenticate } = require("../middleware/authenticate");
-
-router.get("/course", authenticate, (req, res, next) => {
-  Lecture.findOne({
-    title: "Library Skills"
-  }).then(function(subtopics) {
-    res.send(subtopics);
-  });
-});
-
 router.post("/upload", authenticate, (req, res, next) => {
   new formidable.IncomingForm().parse(req, (err, fields, files) => {
     const path = files.material.path;
@@ -61,6 +44,9 @@ router.post("/upload", authenticate, (req, res, next) => {
         });
       }
     );
+  });
+  course.save().then(function(savedcourse) {
+    res.send(savedcourse);
   });
 });
 
