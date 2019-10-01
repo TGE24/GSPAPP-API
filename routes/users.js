@@ -120,7 +120,6 @@ router.post("/login", async (req, res) => {
         _id: 0
       }
     );
-    const courseDetails = await Lecture.findOne({ title: "Library Skills" });
     const passwordValidated = await bcrypt.compare(password, user.password);
     if (!passwordValidated) {
       throw new Error();
@@ -140,8 +139,7 @@ router.post("/login", async (req, res) => {
         title: "Login Successful",
         detail: "Successfully validated user credentials",
         token: session.token,
-        userDetails,
-        courseDetails
+        userDetails
       });
   } catch (err) {
     res.status(401).json({
