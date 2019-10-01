@@ -26,7 +26,7 @@ router.post("/upload", authenticate, (req, res, next) => {
     const uniqueFilename = new Date().toISOString();
     cloudinary.uploader.upload(
       path,
-      { public_id: `${uniqueFilename}` },
+      { resource_type: "raw", public_id: `${uniqueFilename}` },
       function(err, file) {
         if (err) return res.send(err);
         console.log("file uploaded to Cloudinary");
@@ -40,15 +40,17 @@ router.post("/upload", authenticate, (req, res, next) => {
                 console.error("Error", err);
                 throw err;
               }
-              if (!fields.name || !files.material.name) {
+              if (!fields.title || !files.material.name) {
                 sendJSONresponse(res, 400, {
                   message: "Please fill all the required fields"
                 });
                 return;
               }
               subtopic.materials.push({
-                name: fields.name,
+                title: fields.title,
                 material: file.url,
+                filetype: fields.filetype,
+                colour: fields.colour,
                 topicid: subtopic._id
               });
             }
@@ -59,6 +61,34 @@ router.post("/upload", authenticate, (req, res, next) => {
         });
       }
     );
+  });
+});
+
+router.post("/quizupload", authenticate, (req, res, next) => {
+  new formidable.IncomingForm().parse(req, (err, fields, files) => {
+    Lecture.findOne({ title: "Library Skills" }).then(function(subtopics) {
+      subtopics.topics.map((subtopic, index) => {
+        subtopic.materials.map((material, index) => {
+          if (String(material._id) === fields.materialid) {
+            material.quiz.push({
+              question: fields.question,
+              correct_answer: fields.correct_answer,
+              materialid: material._id
+            });
+            material.answers.push({
+              a: fields.a,
+              b: fields.b,
+              c: fields.c,
+              d: fields.d,
+              e: fields.e
+            });
+          }
+        });
+      });
+      subtopics.save().then(function(savedmaterial) {
+        res.send(savedmaterial);
+      });
+    });
   });
 });
 //     const course = new Lecture({
@@ -72,5 +102,4 @@ router.post("/upload", authenticate, (req, res, next) => {
 // course.save().then(function(savedcourse) {
 // res.send(savedcourse)
 // })
-
 module.exports = router;
