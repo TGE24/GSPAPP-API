@@ -107,6 +107,7 @@ router.post("/login", async (req, res) => {
       throw new Error();
     }
     // use the ID of the user who logged in for the session
+    const courseDetails = await Lecture.findOne({ title: "Library Skills" });
     const userId = user._id;
     const userDetails = await User.findById(
       { _id: userId },
@@ -139,7 +140,8 @@ router.post("/login", async (req, res) => {
         title: "Login Successful",
         detail: "Successfully validated user credentials",
         token: session.token,
-        userDetails
+        userDetails,
+        courseDetails
       });
   } catch (err) {
     res.status(401).json({
