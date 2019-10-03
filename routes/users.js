@@ -131,7 +131,7 @@ router.post("/login", async (req, res) => {
     // same options as before!
     res
       .cookie("token", session.token, {
-        httpOnly: true,
+        httpOnly: false,
         sameSite: true,
         maxAge: 86400000, //one day
         secure: process.env.NODE_ENV === "production" // will only be set to true in production
