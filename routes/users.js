@@ -62,12 +62,7 @@ router.post("/register", async (req, res) => {
     const session = await initSession(userId);
 
     res
-      .cookie("token", session.token, {
-        httpOnly: false,
-        sameSite: false,
-        maxAge: 86400000 //one day
-        // secure: process.env.NODE_ENV === "production"
-      })
+      .cookie("token", session.token)
       .status(201)
       .json({
         title: "User Registration Successful",
@@ -129,20 +124,13 @@ router.post("/login", async (req, res) => {
     const session = await initSession(userId);
 
     // same options as before!
-    res
-      .cookie("token", session.token, {
-        httpOnly: false,
-        sameSite: false,
-        maxAge: 86400000 //one day
-        // secure: process.env.NODE_ENV === "production" // will only be set to true in production
-      })
-      .json({
-        title: "Login Successful",
-        detail: "Successfully validated user credentials",
-        token: session.token,
-        userDetails,
-        courseDetails
-      });
+    res.cookie("token", session.token).json({
+      title: "Login Successful",
+      detail: "Successfully validated user credentials",
+      token: session.token,
+      userDetails,
+      courseDetails
+    });
   } catch (err) {
     res.status(401).json({
       errors: [
