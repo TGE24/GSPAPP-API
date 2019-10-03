@@ -7,6 +7,7 @@ const usersRoute = require("./routes/users");
 const courseRoute = require("./routes/courses");
 const compression = require("compression");
 const app = express();
+const cors = require("cors");
 
 mongoose.Promise = global.Promise;
 mongoose.connect(getSecret("dbUri"), { useNewUrlParser: true }).then(
@@ -15,6 +16,8 @@ mongoose.connect(getSecret("dbUri"), { useNewUrlParser: true }).then(
   },
   err => console.log("Error connecting to mongoDB", err)
 );
+
+app.use(cors());
 app.use(compression());
 //sets up the middleware for parsing the bodies and cookies off of the requests
 // parse application/x-www-form-urlencoded
