@@ -8,6 +8,7 @@ const courseRoute = require("./routes/courses");
 const compression = require("compression");
 const app = express();
 const cors = require("cors");
+const expressSession = require('express-session')
 
 mongoose.Promise = global.Promise;
 mongoose.connect(getSecret("dbUri"), { useNewUrlParser: true }).then(
