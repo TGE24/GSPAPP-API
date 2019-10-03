@@ -65,8 +65,8 @@ router.post("/register", async (req, res) => {
       .cookie("token", session.token, {
         httpOnly: false,
         sameSite: false,
-        maxAge: 86400000, //one day
-        secure: process.env.NODE_ENV === "production"
+        maxAge: 86400000 //one day
+        // secure: process.env.NODE_ENV === "production"
       })
       .status(201)
       .json({
@@ -133,8 +133,8 @@ router.post("/login", async (req, res) => {
       .cookie("token", session.token, {
         httpOnly: false,
         sameSite: false,
-        maxAge: 86400000, //one day
-        secure: process.env.NODE_ENV === "production" // will only be set to true in production
+        maxAge: 86400000 //one day
+        // secure: process.env.NODE_ENV === "production" // will only be set to true in production
       })
       .json({
         title: "Login Successful",
