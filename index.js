@@ -24,6 +24,11 @@ app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(expressSession({
+  secret: 'mYsEcReTkEy',
+  resave: true,
+  saveUninitialized: true
+}));
 
 app.use("/api", usersRoute);
 app.use("/api/admin", courseRoute);
