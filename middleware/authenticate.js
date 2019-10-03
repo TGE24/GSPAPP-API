@@ -4,7 +4,7 @@ const authenticate = async (req, res, next) => {
   try {
     // get the session token from the request cookies
     const { token } = req.cookies;
-    console.log(token);
+    console.log(res.cookies);
     // if (!token || typeof token !== 'string') {
     //     // if the token is not a string, we know the session token was not set by the server and is therefore invalid
     //     throw new Error('Request cookie is invalid.');
